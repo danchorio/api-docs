@@ -1,61 +1,61 @@
-# API Explanation
+# API操作示例
 
-## The relevant accounts
+## 相关帐号
 
-* Contract Account : usncontract1
-* Token Account : usntoken1111
+* 债仓管理合约: usncontract1
+* 稳定币合约: usntoken1111
 
-## Issue USN
+## 生成USN
 
-transfer EOS to usncontract1 , memo format is :  "`issue:rate`" 
+向合约帐号 usncontract1 转账EOS, memo格式:  "`issue:质押率`" 
 
 ```
 cleos transfer testuseraaaa usncontract1 "100 EOS" "issue:15000"
 ```
 
-## By reducing the charge rate to issue new USN 
+## 通过降低质押率，生成新的USN
 
-call the `adjust` action of  Contract : 
+调用合约帐号的 adjust action: 
 
 ```
 cleos push action usncontract1 adjust '["testuseraaaa", 15000, true]' -p testuseraaaa
 ```
 
-## Repay USN and withdraw EOS
+## 偿还USN，并减少抵押量
 
-transfer USN to usncontract1, memo format is: "`repay:rate`" 
+向合约帐号 usncontract1 转账USN, memo格式:  "`repay:质押率`" 
 
 ```
 cleos transfer -c usntoken1111 testuseraaaa usncontract1 "11.0000 USN" "repay:15000"
 ```
 
-## Only Repay USN 
+## 仅偿还USN， 但不减少抵押量
 
-transfer USN to usncontract1, memo format is:  "`repay:0`" 
+向合约帐号 usncontract1 转账USN, memo格式:  "`repay:0`" 
 
 ```
 cleos transfer -c usntoken1111 testuseraaaa usncontract1 "11.0000 USN" "repay:0"
 ```
 
-## Deposit
+## 仅增加抵押量
 
-transfer EOS to usncontract1, memo format is:  "`deposit`" 
+向合约帐号 usncontract1 转账EOS, memo格式:  "`deposit`" 
 
 ```
 cleos transfer testuseraaaa usncontract1 "100 EOS" "deposit"
 ```
 
-## Withdraw EOS
+## 仅降低抵押量
 
-call the `withdraw` action of  Contract : 
+调用合约帐号的 withdraw action: 
 
 ```
 cleos push action usncontract1 withdraw '["testuseraaaa", "11.0000 EOS"]' -p testuseraaaa
 ```
 
-## Bid
+## 爆仓抢拍
 
-Check to see if there is an auction: 
+先查询合约数据库，获取爆仓单信息:
 
 ```
 cleos get table usncontract1 usncontract1 auctions
@@ -85,12 +85,10 @@ cleos get table usncontract1 usncontract1 auctions
 }
 ```
 
-If has any auction, You can buy it at a discount of 2%～10%
+如果有存在爆仓的订单，可以直接参与抢拍, 获得最多9折优惠的EOS，
 
-transfer USN to usncontract1, memo format is:  "`bid:aid`" 
+抢拍方式为 向合约帐号 usncontract1 转账USN, memo格式:  "`bid:爆仓单id`" 
 
 ```
 cleos transfer -c usntoken1111 testuseraaaa usncontract1 "100 USN" "bid:2"
 ```
-
-[中文文档](./README_zh.md)
