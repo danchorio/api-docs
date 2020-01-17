@@ -2,15 +2,15 @@
 
 ## The relevant accounts
 
-* Contract Account : usncontract1
-* Token Account : usntoken1111
+* Contract Account : danchorsmart
+* Token Account : danchortoken
 
 ## Issue USN
 
-transfer EOS to usncontract1 , memo format is :  "`issue:rate`" 
+transfer EOS to danchorsmart , memo format is :  "`issue:rate`" 
 
 ```
-cleos transfer testuseraaaa usncontract1 "100 EOS" "issue:15000"
+cleos transfer testuseraaaa danchorsmart "100 EOS" "issue:15000"
 ```
 
 ## By reducing the charge rate to issue new USN 
@@ -18,31 +18,31 @@ cleos transfer testuseraaaa usncontract1 "100 EOS" "issue:15000"
 call the `adjust` action of  Contract : 
 
 ```
-cleos push action usncontract1 adjust '["testuseraaaa", 15000, true]' -p testuseraaaa
+cleos push action danchorsmart adjust '["testuseraaaa", 15000, true]' -p testuseraaaa
 ```
 
 ## Repay USN and withdraw EOS
 
-transfer USN to usncontract1, memo format is: "`repay:rate`" 
+transfer USN to danchorsmart, memo format is: "`repay:rate`" 
 
 ```
-cleos transfer -c usntoken1111 testuseraaaa usncontract1 "11.0000 USN" "repay:15000"
+cleos transfer -c danchortoken testuseraaaa danchorsmart "11.0000 USN" "repay:15000"
 ```
 
 ## Only Repay USN 
 
-transfer USN to usncontract1, memo format is:  "`repay:0`" 
+transfer USN to danchorsmart, memo format is:  "`repay:0`" 
 
 ```
-cleos transfer -c usntoken1111 testuseraaaa usncontract1 "11.0000 USN" "repay:0"
+cleos transfer -c danchortoken testuseraaaa danchorsmart "11.0000 USN" "repay:0"
 ```
 
 ## Deposit
 
-transfer EOS to usncontract1, memo format is:  "`deposit`" 
+transfer EOS to danchorsmart, memo format is:  "`deposit`" 
 
 ```
-cleos transfer testuseraaaa usncontract1 "100 EOS" "deposit"
+cleos transfer testuseraaaa danchorsmart "100 EOS" "deposit"
 ```
 
 ## Withdraw EOS
@@ -50,7 +50,7 @@ cleos transfer testuseraaaa usncontract1 "100 EOS" "deposit"
 call the `withdraw` action of  Contract : 
 
 ```
-cleos push action usncontract1 withdraw '["testuseraaaa", "11.0000 EOS"]' -p testuseraaaa
+cleos push action danchorsmart withdraw '["testuseraaaa", "11.0000 EOS"]' -p testuseraaaa
 ```
 
 ## Bid
@@ -58,7 +58,7 @@ cleos push action usncontract1 withdraw '["testuseraaaa", "11.0000 EOS"]' -p tes
 Check to see if there is an auction: 
 
 ```
-cleos get table usncontract1 usncontract1 auctions
+cleos get table danchorsmart danchorsmart auctions
 
 {
   "rows": [{
@@ -87,10 +87,10 @@ cleos get table usncontract1 usncontract1 auctions
 
 If has any auction, You can buy it at a discount of 2%～10%
 
-transfer USN to usncontract1, memo format is:  "`bid:aid`" 
+transfer USN to danchorsmart, memo format is:  "`bid:aid`" 
 
 ```
-cleos transfer -c usntoken1111 testuseraaaa usncontract1 "100 USN" "bid:2"
+cleos transfer -c danchortoken testuseraaaa danchorsmart "100 USN" "bid:2"
 ```
 
 [中文文档](./README_zh.md)

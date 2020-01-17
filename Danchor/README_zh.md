@@ -2,15 +2,15 @@
 
 ## 相关帐号
 
-* 债仓管理合约: usncontract1
-* 稳定币合约: usntoken1111
+* 债仓管理合约: danchorsmart
+* 稳定币合约: danchortoken
 
 ## 生成USN
 
-向合约帐号 usncontract1 转账EOS, memo格式:  "`issue:质押率`" 
+向合约帐号 danchorsmart 转账EOS, memo格式:  "`issue:质押率`" 
 
 ```
-cleos transfer testuseraaaa usncontract1 "100 EOS" "issue:15000"
+cleos transfer testuseraaaa danchorsmart "100 EOS" "issue:15000"
 ```
 
 ## 通过降低质押率，生成新的USN
@@ -18,31 +18,31 @@ cleos transfer testuseraaaa usncontract1 "100 EOS" "issue:15000"
 调用合约帐号的 adjust action: 
 
 ```
-cleos push action usncontract1 adjust '["testuseraaaa", 15000, true]' -p testuseraaaa
+cleos push action danchorsmart adjust '["testuseraaaa", 15000, true]' -p testuseraaaa
 ```
 
 ## 偿还USN，并减少抵押量
 
-向合约帐号 usncontract1 转账USN, memo格式:  "`repay:质押率`" 
+向合约帐号 danchorsmart 转账USN, memo格式:  "`repay:质押率`" 
 
 ```
-cleos transfer -c usntoken1111 testuseraaaa usncontract1 "11.0000 USN" "repay:15000"
+cleos transfer -c danchortoken testuseraaaa danchorsmart "11.0000 USN" "repay:15000"
 ```
 
 ## 仅偿还USN， 但不减少抵押量
 
-向合约帐号 usncontract1 转账USN, memo格式:  "`repay:0`" 
+向合约帐号 danchorsmart 转账USN, memo格式:  "`repay:0`" 
 
 ```
-cleos transfer -c usntoken1111 testuseraaaa usncontract1 "11.0000 USN" "repay:0"
+cleos transfer -c danchortoken testuseraaaa danchorsmart "11.0000 USN" "repay:0"
 ```
 
 ## 仅增加抵押量
 
-向合约帐号 usncontract1 转账EOS, memo格式:  "`deposit`" 
+向合约帐号 danchorsmart 转账EOS, memo格式:  "`deposit`" 
 
 ```
-cleos transfer testuseraaaa usncontract1 "100 EOS" "deposit"
+cleos transfer testuseraaaa danchorsmart "100 EOS" "deposit"
 ```
 
 ## 仅降低抵押量
@@ -50,7 +50,7 @@ cleos transfer testuseraaaa usncontract1 "100 EOS" "deposit"
 调用合约帐号的 withdraw action: 
 
 ```
-cleos push action usncontract1 withdraw '["testuseraaaa", "11.0000 EOS"]' -p testuseraaaa
+cleos push action danchorsmart withdraw '["testuseraaaa", "11.0000 EOS"]' -p testuseraaaa
 ```
 
 ## 爆仓抢拍
@@ -58,7 +58,7 @@ cleos push action usncontract1 withdraw '["testuseraaaa", "11.0000 EOS"]' -p tes
 先查询合约数据库，获取爆仓单信息:
 
 ```
-cleos get table usncontract1 usncontract1 auctions
+cleos get table danchorsmart danchorsmart auctions
 
 {
   "rows": [{
@@ -87,8 +87,8 @@ cleos get table usncontract1 usncontract1 auctions
 
 如果有存在爆仓的订单，可以直接参与抢拍, 获得最多9折优惠的EOS，
 
-抢拍方式为 向合约帐号 usncontract1 转账USN, memo格式:  "`bid:爆仓单id`" 
+抢拍方式为 向合约帐号 danchorsmart 转账USN, memo格式:  "`bid:爆仓单id`" 
 
 ```
-cleos transfer -c usntoken1111 testuseraaaa usncontract1 "100 USN" "bid:2"
+cleos transfer -c danchortoken testuseraaaa danchorsmart "100 USN" "bid:2"
 ```
