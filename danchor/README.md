@@ -37,6 +37,24 @@ transfer USN to danchorsmart, memo format is:  "`repay:0`"
 cleos transfer -c danchortoken testuseraaaa danchorsmart "11.0000 USN" "repay:0"
 ```
 
+## Repay USN and withdraw EOS  (Pay interest with EOS)
+
+transfer USN to danchorsmart, memo format is: "`repay2:rate`" 
+
+
+```
+cleos transfer -c danchortoken testuseraaaa danchorsmart "11.0000 USN" "repay2:15000"
+```
+
+## Only Repay USN   (Pay interest with EOS)
+
+transfer USN to danchorsmart, memo format is:  "`repay2:0`" 
+
+```
+cleos transfer -c danchortoken testuseraaaa danchorsmart "11.0000 USN" "repay2:0"
+```
+
+
 ## Deposit
 
 transfer EOS to danchorsmart, memo format is:  "`deposit`" 
